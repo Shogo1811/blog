@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}TOP{% endblock %}
+{% block main %}
+<style type="text/css">
+ul.tags li {
+	display: inline;
+	margin-right: 20px;
+}
+
+</style>
+
+{% if tags %}
+<ul class="tags">
+	<li><a href="{% url "core:index" %}">全て</a></li>
+	{% for tag in tags %}
+		<li><a href="{% url "core:entry_list_per_tag" tag.name %}">{{ tag.name }}</a></li>
+	{% endfor %}
+</ul>
+<hr>
+{% endif %}
+
+
+{% if not entry_list %}
+<p>記事はまだ登録されていません</p>
+{% else %}
+{% for entry in entry_list %}
+<div>
+	<h2>{{ entry.day }} - {{ entry.title }}</h2>
+	<div>
+		{{ entry.content|linebreaksbr }}
+	</div>
+
+</div>
+
+{% endfor %}
+{% endif %}
+
+
+
+
+{% endblock %}
